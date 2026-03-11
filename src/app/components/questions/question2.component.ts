@@ -32,6 +32,6 @@ export class Question2Component {
     correctIndex: 1,
     explanation:
       'typeof null is "object" — a famous bug since JS was created in 1995 that can never be fixed. And typeof NaN is "number" — yes, Not-a-Number is a number!',
-    gifPath: 'gifs/question2.gif',
+    gifPaths: ['gifs/question2.gif'],
   };
 }

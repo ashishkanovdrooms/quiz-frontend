@@ -23,10 +23,10 @@ export class Question7Component {
     totalQuestions: 10,
     code: `+!+[]`,
     questionText: 'What does this expression evaluate to?',
-    options: ['0', '1', 'NaN', 'true'],
+    options: ['0', '1', 'false', 'true'],
     correctIndex: 1,
     explanation:
-      'Reading right to left: +[] is 0 (unary + on empty array). !0 is true (negation). +true is 1 (unary + coerces boolean to number). This is how JSF**k encodes the number 1!',
-    gifPath: 'gifs/question7.gif',
+      'Reading right to left: +[] is 0 (unary + on empty array). !0 is true (negation). +true is 1 (unary + coerces boolean to number).',
+    gifPaths: ['gifs/question7.gif'],
   };
 }

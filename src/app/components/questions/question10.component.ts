@@ -22,11 +22,11 @@ export class Question10Component {
     questionNumber: 10,
     totalQuestions: 10,
     code: `(![]+[])[0] + (![]+[])[1] +\n([][[]]+[])[5] + (![]+[])[2]`,
-    questionText: '🏆 FINAL BOSS: What does this evaluate to?',
-    options: ['"NaN"', '"fail"', '"null"', '"flux"'],
+    questionText: 'FINAL BOSS: What does this evaluate to?',
+    options: ['"NaNi"', '"fail"', '"NaNo"', '"flex"'],
     correctIndex: 1,
     explanation:
-      'It spells "fail"! 😂 ![] is false → (![]+[]) is "false". "false"[0]="f", [1]="a", [2]="l". Then [][[]] is undefined → ([][[]]+[]) is "undefined", and "undefined"[5]="i". Put together: "f"+"a"+"i"+"l" = "fail"!',
-    gifPath: 'gifs/question10.gif',
+      'It spells "fail". ![] is false → (![]+[]) is "false". "false"[0]="f", [1]="a", [2]="l". Then [][[]] is undefined → ([][[]]+[]) is "undefined", and "undefined"[5]="i". Put together: "f"+"a"+"i"+"l" = "fail"!',
+    gifPaths: ['gifs/question10.gif', 'gifs/question10-1.gif', 'gifs/question10-2.gif'],
   };
 }

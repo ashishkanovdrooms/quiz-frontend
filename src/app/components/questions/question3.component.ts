@@ -21,12 +21,12 @@ export class Question3Component {
   question: QuizQuestion = {
     questionNumber: 3,
     totalQuestions: 10,
-    code: `0.1 + 0.2 === 0.3`,
+    code: `0.1 + 0.2 == 0.3`,
     questionText: 'What does this comparison return?',
-    options: ['true', 'false', 'NaN', 'TypeError'],
-    correctIndex: 1,
+    options: ['false', 'true', 'NaN', 'BaNaNa'],
+    correctIndex: 0,
     explanation:
-      'Due to IEEE 754 floating-point precision, 0.1 + 0.2 equals 0.30000000000000004, not 0.3. The strict comparison returns false!',
-    gifPath: 'gifs/question3.gif',
+      'Due to IEEE 754 floating-point precision, 0.1 + 0.2 equals 0.30000000000000004, not 0.3. The comparison returns false!',
+    gifPaths: ['gifs/question3.gif'],
   };
 }

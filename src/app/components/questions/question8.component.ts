@@ -23,10 +23,10 @@ export class Question8Component {
     totalQuestions: 10,
     code: `true + true + true`,
     questionText: 'What is the result?',
-    options: ['3', '"truetruetrue"', 'NaN', 'TypeError'],
+    options: ['3', '"truetruetrue"', 'true', 'BaNaNa'],
     correctIndex: 0,
     explanation:
       'When used with the + operator, booleans are coerced to numbers. true becomes 1, so true + true + true = 1 + 1 + 1 = 3.',
-    gifPath: 'gifs/question8.gif',
+    gifPaths: ['gifs/question8.gif'],
   };
 }

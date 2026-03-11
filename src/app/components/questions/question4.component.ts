@@ -21,17 +21,17 @@ export class Question4Component {
   question: QuizQuestion = {
     questionNumber: 4,
     totalQuestions: 10,
-    code: `[] == false    // ???\n[] == ![]      // ???`,
-    questionText: 'What do these two comparisons return?',
+    code: `Boolean([])    // ???\nNumber([])     // ???\n[] == ![]      // ???`,
+    questionText: 'What do these three expressions return?',
     options: [
-      'true and false',
-      'false and false',
-      'true and true',
-      'false and true',
+      'true, 1, false',
+      'false, 0, false',
+      'true, 0, true',
+      'false, 1, true',
     ],
     correctIndex: 2,
     explanation:
-      'Both are true! [] == false: the array is coerced to "" then to 0, and false to 0, so 0 == 0. [] == ![]: ![] is false, so it becomes [] == false — same trick. An array equals its own negation!',
-    gifPath: 'gifs/question4.gif',
+      'Boolean([]) is true because an empty array is a truthy value. Number([]) is 0 because when converting an empty array to a number, it first converts to an empty string "" and then to 0. [] == ![] is false because [] is truthy, so ![] is false, and [] == false evaluates to true due to type coercion rules.',
+    gifPaths: ['gifs/question4.gif'],
   };
 }

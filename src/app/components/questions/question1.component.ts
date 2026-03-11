@@ -23,10 +23,10 @@ export class Question1Component {
     totalQuestions: 10,
     code: `'B' + 'a' + + 'a' + 'a'`,
     questionText: 'What does this expression evaluate to?',
-    options: ['"Baaa"', '"BaNaNa"', '"Baba"', 'TypeError'],
+    options: ['"Baaa"', '"BaNaNa"', '"Baba"', '"Ba+aa"'],
     correctIndex: 1,
     explanation:
       'The + before the second \'a\' tries to convert it to a number, resulting in NaN. String concatenation gives "B" + "a" + "NaN" + "a" = "BaNaNa"! 🍌',
-    gifPath: 'gifs/question1.gif',
+    gifPaths: ['gifs/question1.gif'],
   };
 }

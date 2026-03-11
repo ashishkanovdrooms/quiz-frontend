@@ -27,6 +27,6 @@ export class Question9Component {
     correctIndex: 2,
     explanation:
       'Math.max() returns -Infinity when called with no arguments. It\'s the identity element for maximum — any number is greater than -Infinity. Similarly, Math.min() returns Infinity!',
-    gifPath: 'gifs/question9.gif',
+    gifPaths: ['gifs/question9.gif'],
   };
 }

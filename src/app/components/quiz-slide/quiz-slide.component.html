@@ -38,12 +38,13 @@
       <div class="explanation-icon">💡</div>
       <p>{{ question.explanation }}</p>
     </div>
-  }
-
-  @if (showGifs && question.gifPath) {
-    <div class="gif-container">
-      <img class="question-gif" [src]="question.gifPath" alt="meme gif" />
-    </div>
+    @if (showGifs && question.gifPaths?.length) {
+      <div class="gif-container">
+        @for (gif of question.gifPaths!; track gif) {
+          <img class="question-gif" [src]="gif" alt="meme gif" />
+        }
+      </div>
+    }
   }
 
   <div class="navigation">
