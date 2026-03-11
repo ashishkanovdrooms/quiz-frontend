@@ -27,5 +27,6 @@ export class Question3Component {
     correctIndex: 1,
     explanation:
       'Due to IEEE 754 floating-point precision, 0.1 + 0.2 equals 0.30000000000000004, not 0.3. The strict comparison returns false!',
+    gifPath: 'gifs/question3.gif',
   };
 }

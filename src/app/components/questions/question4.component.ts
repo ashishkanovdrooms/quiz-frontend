@@ -31,6 +31,7 @@ export class Question4Component {
     ],
     correctIndex: 2,
     explanation:
-      'Both are true! [] == false: the array is coerced to "" then to 0, and false to 0, so 0 == 0. [] == ![]: ![] is false, so it becomes [] == false — same trick. An array equals its own negation! 🤪',
+      'Both are true! [] == false: the array is coerced to "" then to 0, and false to 0, so 0 == 0. [] == ![]: ![] is false, so it becomes [] == false — same trick. An array equals its own negation!',
+    gifPath: 'gifs/question4.gif',
   };
 }

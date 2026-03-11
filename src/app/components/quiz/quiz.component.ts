@@ -12,6 +12,9 @@ import { Question7Component } from '../questions/question7.component';
 import { Question8Component } from '../questions/question8.component';
 import { Question9Component } from '../questions/question9.component';
 
+const PASSWORD = 'simsalabim';
+const AUTH_KEY = 'quiz_auth';
+
 @Component({
   selector: 'app-quiz',
   standalone: true,
@@ -39,9 +42,14 @@ export class QuizComponent implements OnInit {
   voteUrl: string | null = null;
   wsConnected = false;
 
+  isAuthenticated = false;
+  passwordError = false;
+
   constructor(private votingService: VotingService) {}
 
   ngOnInit(): void {
+    this.isAuthenticated = sessionStorage.getItem(AUTH_KEY) === '1';
+
     this.votingService.connect();
     this.votingService.qrData$.subscribe((data) => {
       if (data) {
@@ -52,8 +60,19 @@ export class QuizComponent implements OnInit {
     this.votingService.connected$.subscribe((c) => (this.wsConnected = c));
   }
 
+  submitPassword(value: string): void {
+    if (value === PASSWORD) {
+      sessionStorage.setItem(AUTH_KEY, '1');
+      this.isAuthenticated = true;
+      this.passwordError = false;
+    } else {
+      this.passwordError = true;
+    }
+  }
+
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent): void {
+    if (!this.isAuthenticated) return;
     if (event.key === 'ArrowRight' || event.key === ' ') {
       this.nextSlide();
     } else if (event.key === 'ArrowLeft') {

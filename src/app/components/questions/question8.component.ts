@@ -27,5 +27,6 @@ export class Question8Component {
     correctIndex: 0,
     explanation:
       'When used with the + operator, booleans are coerced to numbers. true becomes 1, so true + true + true = 1 + 1 + 1 = 3.',
+    gifPath: 'gifs/question8.gif',
   };
 }

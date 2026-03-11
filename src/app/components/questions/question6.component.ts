@@ -32,5 +32,6 @@ export class Question6Component {
     correctIndex: 1,
     explanation:
       'Arrays and objects are converted to strings with +. An empty array becomes "", so [] + [] = "". An object becomes "[object Object]", so [] + {} = "" + "[object Object]" = "[object Object]".',
+    gifPath: 'gifs/question6.gif',
   };
 }

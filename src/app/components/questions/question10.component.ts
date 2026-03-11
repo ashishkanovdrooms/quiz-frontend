@@ -27,5 +27,6 @@ export class Question10Component {
     correctIndex: 1,
     explanation:
       'It spells "fail"! 😂 ![] is false → (![]+[]) is "false". "false"[0]="f", [1]="a", [2]="l". Then [][[]] is undefined → ([][[]]+[]) is "undefined", and "undefined"[5]="i". Put together: "f"+"a"+"i"+"l" = "fail"!',
+    gifPath: 'gifs/question10.gif',
   };
 }

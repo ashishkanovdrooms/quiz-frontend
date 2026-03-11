@@ -21,11 +21,12 @@ export class Question1Component {
   question: QuizQuestion = {
     questionNumber: 1,
     totalQuestions: 10,
-    code: `('b' + 'a' + + 'a' + 'a').toLowerCase()`,
+    code: `'B' + 'a' + + 'a' + 'a'`,
     questionText: 'What does this expression evaluate to?',
-    options: ['"baaa"', '"banana"', '"baNaNa"', 'TypeError'],
+    options: ['"Baaa"', '"BaNaNa"', '"Baba"', 'TypeError'],
     correctIndex: 1,
     explanation:
-      'The + before the second \'a\' tries to convert it to a number, resulting in NaN. String concatenation gives "b" + "a" + "NaN" + "a" = "baNaNa", and toLowerCase() makes it "banana"! 🍌',
+      'The + before the second \'a\' tries to convert it to a number, resulting in NaN. String concatenation gives "B" + "a" + "NaN" + "a" = "BaNaNa"! 🍌',
+    gifPath: 'gifs/question1.gif',
   };
 }

@@ -1,4 +1,23 @@
-@if (showTitle) {
+@if (!isAuthenticated) {
+  <div class="password-gate">
+    <div class="password-box">
+      <h2>🔒 Quiz Access</h2>
+      <p class="password-hint">Enter the presenter password to continue</p>
+      <input
+        #pwInput
+        type="password"
+        class="password-input"
+        placeholder="Password"
+        (keydown.enter)="submitPassword(pwInput.value)"
+        autofocus
+      />
+      @if (passwordError) {
+        <p class="password-error">Incorrect password. Try again.</p>
+      }
+      <button class="password-btn" (click)="submitPassword(pwInput.value)">Enter →</button>
+    </div>
+  </div>
+} @else if (showTitle) {
   <div class="title-slide">
     <div class="title-content">
       <h1 class="title">⚡ JavaScript WTF Quiz ⚡</h1>

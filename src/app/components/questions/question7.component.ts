@@ -27,5 +27,6 @@ export class Question7Component {
     correctIndex: 1,
     explanation:
       'Reading right to left: +[] is 0 (unary + on empty array). !0 is true (negation). +true is 1 (unary + coerces boolean to number). This is how JSF**k encodes the number 1!',
+    gifPath: 'gifs/question7.gif',
   };
 }

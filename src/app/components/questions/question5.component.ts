@@ -32,5 +32,6 @@ export class Question5Component {
     correctIndex: 2,
     explanation:
       'Both are false! NaN is the only value in JavaScript that is not equal to itself — with either == or ===. Use Number.isNaN() to check for NaN instead!',
+    gifPath: 'gifs/question5.gif',
   };
 }

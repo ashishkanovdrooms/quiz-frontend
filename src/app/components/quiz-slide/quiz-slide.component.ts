@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { QuizQuestion } from '../../models/quiz.model';
+import { GifToggleService } from '../../services/gif-toggle.service';
 import { VotingService } from '../../services/voting.service';
 
 @Component({
@@ -21,11 +22,19 @@ export class QuizSlideComponent implements OnInit, OnChanges, OnDestroy {
   votes: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0 };
   totalVoters = 0;
   connected = false;
+  qrDataUrl: string | null = null;
+  voteUrl: string | null = null;
+  showGifs = true;
 
   private sub?: Subscription;
   private connSub?: Subscription;
+  private qrSub?: Subscription;
+  private gifSub?: Subscription;
 
-  constructor(private votingService: VotingService) {}
+  constructor(
+    private votingService: VotingService,
+    private gifToggle: GifToggleService,
+  ) {}
 
   ngOnInit(): void {
     this.sub = this.votingService.voteState$.subscribe((state) => {
@@ -35,6 +44,13 @@ export class QuizSlideComponent implements OnInit, OnChanges, OnDestroy {
       }
     });
     this.connSub = this.votingService.connected$.subscribe((c) => (this.connected = c));
+    this.qrSub = this.votingService.qrData$.subscribe((data) => {
+      if (data) {
+        this.qrDataUrl = data.qr;
+        this.voteUrl = data.url;
+      }
+    });
+    this.gifSub = this.gifToggle.showGifs$.subscribe((v) => (this.showGifs = v));
   }
 
   ngOnChanges(): void {
@@ -45,6 +61,8 @@ export class QuizSlideComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
     this.connSub?.unsubscribe();
+    this.qrSub?.unsubscribe();
+    this.gifSub?.unsubscribe();
   }
 
   selectOption(index: number): void {

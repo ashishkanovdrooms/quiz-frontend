@@ -6,4 +6,5 @@ export interface QuizQuestion {
   options: string[];
   correctIndex: number;
   explanation: string;
+  gifPath?: string;
 }
