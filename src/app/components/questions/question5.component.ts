@@ -26,10 +26,10 @@ export class Question5Component {
     options: [
       'true and true',
       'true and false',
-      'false and false',
       'false and true',
+      'false and false',
     ],
-    correctIndex: 2,
+    correctIndex: 3,
     explanation:
       'Both are false! NaN is the only value in JavaScript that is not equal to itself — with either == or ===. Use Number.isNaN() to check for NaN instead!',
     gifPaths: ['gifs/question5.gif'],

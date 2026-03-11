@@ -189,27 +189,27 @@
     const LETTERS = ['A', 'B', 'C', 'D'];
     const OPTIONS = [
       // Q1
-      ['"Baaa"', '"BaNaNa"', '"Baba"', 'Ba + "a" + "a"'],
+      ['"Baaa"', '"BaNaNa"', '"Baba"', '"Ba+aa"'],
       // Q2
       ['"null" and "NaN"', '"object" and "number"', '"undefined" and "number"', '"object" and "NaN"'],
       // Q3
-      ['true', 'false', 'NaN', 'TypeError'],
+      ['false', 'true', 'NaN', 'BaNaNa'],
       // Q4
-      ['true and false', 'false and false', 'true and true', 'false and true'],
+      ['true, 1, false', 'false, 0, false', 'true, 0, true', 'false, 1, true'],
       // Q5
-      ['true and true', 'true and false', 'false and false', 'false and true'],
+      ['true and true', 'true and false', 'false and true', 'false and false'],
       // Q6
       ['0 and NaN', '"" and "[object Object]"', '[] and {}', 'undefined and undefined'],
       // Q7
-      ['0', '1', 'NaN', 'true'],
+      ['0', '1', 'false', 'true'],
       // Q8
-      ['3', '"truetruetrue"', 'NaN', 'TypeError'],
+      ['3', '"truetruetrue"', 'true', 'BaNaNa'],
       // Q9
       ['0', 'Infinity', '-Infinity', 'NaN'],
       // Q10
-      ['"NaN"', '"fail"', '"null"', '"flux"'],
+      ['"NaNi"', '"fail"', '"NaNo"', '"flex"'],
     ];
-    const CORRECT = [1, 1, 1, 2, 2, 1, 1, 0, 2, 1];
+    const CORRECT = [1, 1, 0, 2, 3, 1, 1, 0, 2, 1];
 
     let ws;
     let myVote = null;
