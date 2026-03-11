@@ -1,0 +1,137 @@
+:host {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.title-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #1a1a3e 0%, #0d0d1a 100%);
+}
+
+.title-content {
+  text-align: center;
+  animation: fadeInUp 0.8s ease;
+}
+
+.title {
+  font-size: 3.5rem;
+  color: #fff;
+  margin: 0 0 0.8rem 0;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  font-size: 1.6rem;
+  color: #aaa;
+  margin: 0 0 0.4rem 0;
+  font-weight: 300;
+
+  em {
+    color: #f8d849;
+    font-style: italic;
+  }
+}
+
+.subtitle-small {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 2.5rem 0;
+}
+
+.start-btn {
+  padding: 0.9rem 2.5rem;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  }
+}
+
+.qr-section {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.qr-label {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 0.6rem;
+}
+
+.qr-code {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+}
+
+.qr-url {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: #667eea;
+  font-family: monospace;
+}
+
+.server-hint {
+  margin-top: 1rem;
+  color: #f8d849;
+  font-size: 0.8rem;
+
+  kbd {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    font-family: monospace;
+    color: #f8d849;
+  }
+}
+
+.hint {
+  margin-top: 1.2rem;
+  color: #555;
+  font-size: 0.85rem;
+
+  kbd {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    font-family: monospace;
+    color: #888;
+  }
+}
+
+.slide-container {
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(ellipse at center, #1a1a3e 0%, #0d0d1a 100%);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

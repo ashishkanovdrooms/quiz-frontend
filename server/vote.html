@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>JS Quiz - Vote!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0d0d1a;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .header h1 {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .header .question-num {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .waiting {
+      text-align: center;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .waiting h2 {
+      font-size: 1.4rem;
+      color: #aaa;
+      margin-bottom: 0.5rem;
+    }
+
+    .waiting p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .option-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.1rem 1.2rem;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      color: #e0e0e0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      -webkit-user-select: none;
+      user-select: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .option-btn:active {
+      transform: scale(0.97);
+    }
+
+    .option-btn.selected {
+      background: rgba(102, 126, 234, 0.3);
+      border-color: #667eea;
+    }
+
+    .option-btn.correct {
+      background: rgba(76, 175, 80, 0.3) !important;
+      border-color: #4caf50 !important;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(244, 67, 54, 0.3) !important;
+      border-color: #f44336 !important;
+    }
+
+    .option-btn.dimmed {
+      opacity: 0.35;
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .option-btn.selected .option-letter {
+      background: #667eea;
+      color: #fff;
+    }
+
+    .option-btn.correct .option-letter {
+      background: #4caf50;
+      color: #fff;
+    }
+
+    .option-btn.incorrect .option-letter {
+      background: #f44336;
+      color: #fff;
+    }
+
+    .voted-msg {
+      text-align: center;
+      margin-top: 1.5rem;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .voted-msg .check {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .voted-msg p {
+      color: #888;
+      font-size: 1rem;
+    }
+
+    .connection-status {
+      position: fixed;
+      top: 0.8rem;
+      right: 0.8rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f44336;
+    }
+
+    .connection-status.connected {
+      background: #4caf50;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="connection-status" id="connStatus"></div>
+
+  <div id="content">
+    <div class="waiting">
+      <h2>⚡ JS Quiz</h2>
+      <p>Waiting for the quiz to start...</p>
+    </div>
+  </div>
+
+  <script>
+    const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host;
+    const LETTERS = ['A', 'B', 'C', 'D'];
+    const OPTIONS = [
+      // Q1
+      ['"baaa"', '"banana"', '"baNaNa"', 'TypeError'],
+      // Q2
+      ['"null" and "NaN"', '"object" and "number"', '"undefined" and "number"', '"object" and "NaN"'],
+      // Q3
+      ['true', 'false', 'NaN', 'TypeError'],
+      // Q4
+      ['true and false', 'false and false', 'true and true', 'false and true'],
+      // Q5
+      ['true and true', 'true and false', 'false and false', 'false and true'],
+      // Q6
+      ['0 and NaN', '"" and "[object Object]"', '[] and {}', 'undefined and undefined'],
+      // Q7
+      ['0', '1', 'NaN', 'true'],
+      // Q8
+      ['3', '"truetruetrue"', 'NaN', 'TypeError'],
+      // Q9
+      ['0', 'Infinity', '-Infinity', 'NaN'],
+      // Q10
+      ['"NaN"', '"fail"', '"null"', '"flux"'],
+    ];
+    const CORRECT = [1, 1, 1, 2, 2, 1, 1, 0, 2, 1];
+
+    let ws;
+    let myVote = null;
+    let currentQ = 0;
+    let isRevealed = false;
+
+    function connect() {
+      ws = new WebSocket(WS_URL);
+
+      ws.onopen = () => {
+        document.getElementById('connStatus').classList.add('connected');
+      };
+
+      ws.onclose = () => {
+        document.getElementById('connStatus').classList.remove('connected');
+        setTimeout(connect, 2000);
+      };
+
+      ws.onmessage = (e) => {
+        const msg = JSON.parse(e.data);
+
+        if (msg.type === 'state') {
+          const questionChanged = msg.question !== currentQ;
+          currentQ = msg.question;
+          isRevealed = msg.revealed;
+          if (questionChanged) myVote = null;
+          render();
+        }
+
+        if (msg.type === 'voteConfirmed') {
+          myVote = msg.option;
+          render();
+        }
+      };
+    }
+
+    function vote(optionIndex) {
+      if (myVote !== null || isRevealed) return;
+      ws.send(JSON.stringify({ type: 'vote', option: optionIndex }));
+    }
+
+    function render() {
+      const content = document.getElementById('content');
+
+      if (currentQ === 0) {
+        content.innerHTML = `
+          <div class="waiting">
+            <h2>⚡ JS Quiz</h2>
+            <p>Waiting for the quiz to start...</p>
+          </div>`;
+        return;
+      }
+
+      const qIdx = currentQ - 1;
+      const options = OPTIONS[qIdx] || [];
+      const correctIdx = CORRECT[qIdx];
+
+      let html = `
+        <div class="header">
+          <h1>⚡ JS Quiz</h1>
+          <div class="question-num">Question ${currentQ} of 10</div>
+        </div>`;
+
+      if (myVote !== null && !isRevealed) {
+        // Voted, waiting for reveal
+        html += `
+          <div class="voted-msg">
+            <div class="check">✅</div>
+            <p>Vote locked in: <strong>${LETTERS[myVote]}</strong></p>
+            <p style="margin-top:0.5rem;color:#555;">Waiting for the answer...</p>
+          </div>`;
+      } else {
+        html += `<div class="options">`;
+        options.forEach((opt, i) => {
+          let cls = 'option-btn';
+          let disabled = '';
+
+          if (isRevealed) {
+            disabled = 'disabled';
+            if (i === correctIdx) cls += ' correct';
+            else if (i === myVote) cls += ' incorrect';
+            else cls += ' dimmed';
+          } else if (myVote !== null) {
+            disabled = 'disabled';
+            if (i === myVote) cls += ' selected';
+            else cls += ' dimmed';
+          }
+
+          html += `
+            <button class="${cls}" ${disabled} onclick="vote(${i})">
+              <span class="option-letter">${LETTERS[i]}</span>
+              <span>${opt}</span>
+            </button>`;
+        });
+        html += `</div>`;
+      }
+
+      content.innerHTML = html;
+    }
+
+    connect();
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+@if (showTitle) {
+  <div class="title-slide">
+    <div class="title-content">
+      <h1 class="title">⚡ JavaScript WTF Quiz ⚡</h1>
+      <p class="subtitle">How well do you <em>really</em> know JavaScript?</p>
+      <p class="subtitle-small">10 mind-blowing questions that will make you question everything</p>
+
+      @if (qrDataUrl) {
+        <div class="qr-section">
+          <p class="qr-label">📱 Scan to vote from your phone:</p>
+          <img [src]="qrDataUrl" alt="QR Code" class="qr-code" />
+          <p class="qr-url">{{ voteUrl }}</p>
+        </div>
+      }
+
+      <button class="start-btn" (click)="startQuiz()">Start Quiz →</button>
+      <p class="hint">or press <kbd>→</kbd> to begin</p>
+
+      @if (!wsConnected) {
+        <p class="server-hint">⚠️ Voting server not connected. Run: <kbd>node server/server.js</kbd></p>
+      }
+    </div>
+  </div>
+} @else {
+  <div class="slide-container">
+    @switch (currentSlide) {
+      @case (1) { <app-question1 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (2) { <app-question2 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (3) { <app-question3 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (4) { <app-question4 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (5) { <app-question5 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (6) { <app-question6 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (7) { <app-question7 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (8) { <app-question8 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (9) { <app-question9 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (10) { <app-question10 (next)="nextSlide()" (prev)="prevSlide()" /> }
+    }
+  </div>
+}

@@ -1,0 +1,51 @@
+<div class="slide">
+  <div class="slide-header">
+    @if (connected) {
+      <span class="voters-badge">👥 {{ totalVoters }} voted</span>
+    }
+    <span class="question-counter">{{ question.questionNumber }} / {{ question.totalQuestions }}</span>
+  </div>
+
+  <div class="question-section">
+    <h2 class="question-text">{{ question.questionText }}</h2>
+    <pre class="code-block"><code>{{ question.code }}</code></pre>
+  </div>
+
+  <div class="options-grid">
+    @for (option of question.options; track $index) {
+      <button
+        class="option-btn"
+        [class]="'option-btn ' + getOptionClass($index)"
+        (click)="selectOption($index)"
+        [disabled]="revealed"
+      >
+        <div class="option-content">
+          <span class="option-letter">{{ ['A', 'B', 'C', 'D'][$index] }}</span>
+          <span class="option-text">{{ option }}</span>
+        </div>
+        @if (totalVoters > 0) {
+          <div class="vote-bar-container">
+            <div class="vote-bar" [style.width.%]="getVotePercent($index)"></div>
+            <span class="vote-count">{{ votes[$index] || 0 }} <span class="vote-pct">({{ getVotePercent($index) }}%)</span></span>
+          </div>
+        }
+      </button>
+    }
+  </div>
+
+  @if (revealed) {
+    <div class="explanation">
+      <div class="explanation-icon">💡</div>
+      <p>{{ question.explanation }}</p>
+    </div>
+  }
+
+  <div class="navigation">
+    <button class="nav-btn" (click)="onPrev()" [disabled]="question.questionNumber === 1">
+      ← Prev
+    </button>
+    <button class="nav-btn" (click)="onNext()" [disabled]="question.questionNumber === question.totalQuestions">
+      Next →
+    </button>
+  </div>
+</div>

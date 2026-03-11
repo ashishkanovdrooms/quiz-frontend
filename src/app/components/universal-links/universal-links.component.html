@@ -1,0 +1,32 @@
+@if (showTitle) {
+  <div class="title-slide">
+    <div class="title-content">
+      <div class="icon-row">
+        <span class="big-icon">🔗</span>
+        <span class="big-icon">📱</span>
+      </div>
+      <h1 class="title">Universal Links on iPhone</h1>
+      <p class="subtitle">A Technical Deep Dive for <em>Frontend Developers</em></p>
+      <p class="subtitle-small">How your backend, Apple CDN, and iOS apps work together</p>
+      <button class="start-btn" (click)="startPresentation()">Start Presentation →</button>
+      <p class="hint">or press <kbd>→</kbd> to begin</p>
+    </div>
+  </div>
+} @else {
+  <div class="slide-container">
+    @switch (currentSlide) {
+      @case (1) { <app-ul-slide1 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (2) { <app-ul-slide2 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (3) { <app-ul-slide3 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (4) { <app-ul-slide4 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (5) { <app-ul-slide5 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (6) { <app-ul-slide6 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (7) { <app-ul-slide7 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (8) { <app-ul-slide8 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (9) { <app-ul-slide9 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (10) { <app-ul-slide10 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (11) { <app-ul-slide11 (next)="nextSlide()" (prev)="prevSlide()" /> }
+      @case (12) { <app-ul-slide12 (next)="nextSlide()" (prev)="prevSlide()" /> }
+    }
+  </div>
+}

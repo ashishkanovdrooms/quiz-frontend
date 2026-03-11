@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: quiz
+    runtime: docker
+    plan: free
+    envVars:
+      - key: RENDER_EXTERNAL_URL
+        fromService:
+          type: web
+          name: quiz
+          property: url
