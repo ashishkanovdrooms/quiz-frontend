@@ -11,7 +11,7 @@ export interface VoteState {
 @Injectable({ providedIn: 'root' })
 export class VotingService implements OnDestroy {
   private ws: WebSocket | null = null;
-  private readonly WS_URL = `ws://${window.location.host}`;
+  private readonly WS_URL = `${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}`;
 
   readonly voteState$ = new BehaviorSubject<VoteState>({
     question: 0,
